@@ -1,0 +1,32 @@
+/*
+시나리오를 통해 개연성있는 sql문장으로 작품을 만들자
+캘린더 주제없이
+1.지금까지 배운 모든 sql문장중 일부 활용,sql문장 세개 이상
+2.제출 포맷은 팀원1,팀원2.sql,txt
+1시간
+*/
+
+
+1번. 
+ 인사과인 JONES사원은 ALLEN사원에게 사장님의 아들이 사내에 있다는 정보를 알려주었다. 아들은 5번째로 연봉이 높다고 한다.
+비틀린 야망을 가진 ALLEN사원은 사장님의 아들을 찾아내 결혼하려고 한다. ALLEN사원이 써야하는 SQL문을 쓰시오.
+사장님의 아들(추정): CLARK
+
+SELECT ename, sal FROM emp ORDER BY sal desc;
+
+2번. 
+ ALLEN사원은 CLARK사원에게 접근하여 사귀는 데 성공하였다. 두사람은 9월 28일 동거를 시작하였다. 
+그러나 ALLEN사원은 곧 CLARK사원이 사장님의 아들이 아니란 사실을 알게 되었다. JONES에게 말하자 JONES는 커미션을 포함한 금액이 
+5번째인 사람이라고 알려주었다. 진짜 사장님 아들을 찾기 위해 ALLEN이 써야하는 SQL문을 쓰시오.
+(별칭으로 연봉값에는 new연봉이라는 별칭을 쓰시오)
+
+사장님 진짜 아들: MARTIN
+SELECT ename, sal + nvl(comm,0) as new연봉 FROM emp ORDER BY new연봉 desc;
+
+3번. 
+ ALLEN사원은 연인인 CLARK의 존재를 숨기고 사장님의 아들에게 접근하여 호감을 사는데 성공하였다. 이후 두사람은 1박 2일 여행을 떠났다.
+가족들과 여행을 떠난다는 ALLEN의 말을 믿지 않은 CLARK사원은 ALLEN사원을 조사하다가 인사과의 JONES씨에게 두사람이 여행을 떠났다는 사실을 들었다. 
+JONES씨는 ALLEN과 떠난 사람이 입사일과 같은 날에 휴가를 떠났다는 사실을 신기해하며 말했다. ALLEN의 외도를 하는 사람은 누구일까.
+CLARK가 MARTIN을 찾기 위해 써야하는 SQL문을 쓰시오.
+
+SELECT ename, hiredate FROM emp WHERE substr(hiredate,4,5) = '09/28';
