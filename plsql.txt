@@ -1,0 +1,60 @@
+
+1. 회사 EMP 내, RESEARCH(DEPTNO 20)부서가 신시장을 개척하여 회사의 매출이 크게 증대되었다.
+RESEARCH부서의 노고를 치하하고자 연봉을 100만원씩 인상시키기로 하였다.
+(20번 부서 연봉 +100)
+
+ create or replace procedure update_20
+ is
+ begin
+    update emp01 set sal=sal+100
+    where deptno=20;
+ end;
+ /
+
+<확인 코드>
+ select deptno, sal from emp01;
+ execute update_20;
+ select deptno, sal from emp01 order by deptno;
+
+
+2. 1과 같은 일이 있은 후 회사 내 SALESMAN부서가 크게 반발하며 파업에 나섰다.
+회사에서는 협상을 통하여 SALESMAN부서의 보너스(COMM)를 +100 올려주기로 하였다. 
+
+ create or replace procedure commition(j varchar2)
+ is
+ begin
+       declare
+       cursor emp01_cursor 
+       
+       is
+      
+       select empno, ename, comm+100 as c from emp01 where JOB = j;
+       
+       begin
+       
+       for emp01_data in emp_cursor()
+       loop
+       dbms_output.put_line(emp_data.empno || ' ' || emp_data.ename || ' ' || emp_data.c);
+       end loop;
+       end;
+ end;
+ /
+
+<확인 코드>
+ execute commition('SALESMAN');
+ 
+3. 회사가 파업 주동자 징계에 착수하였다. 
+가장 먼저 선두에 있던 MILLER사원이 대상이 되어 근무태만을 이유로 연봉이 삭감되었다.
+
+ create or replace procedure update_sal(v_ename emp01.ename%type, v_sal emp01.sal%type )
+ is
+ begin
+    update emp01 set sal = v_sal where ename=v_ename; 
+ end;
+ /
+
+<확인 코드>
+ select ename, sal from emp01 where ename='MILLER';
+ execute update_sal('MILLER', 1000);
+ select ename, sal from emp01 where ename='MILLER';
+
